@@ -1,7 +1,6 @@
 package com.jian.util;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,10 +11,12 @@ import java.io.OutputStream;
 import java.util.Base64;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 
 public class FileUtil {
-
+  static Logger  logger  =  LoggerFactory.getLogger(FileUtil.class);
 	
 	/**
 	 * 获取文件夹路径 
@@ -29,11 +30,19 @@ public class FileUtil {
 	 * @throws
 	 */
 	public static String getMidkirs(String path) throws FileNotFoundException{
-		 File  file  =new File(ResourceUtils.getFile("classpath:").getPath() +"/" +path) ;
-		 if(!file.exists())
-			 file.mkdirs();
-		return file.getPath();
-		
+		 File  file;
+		try{
+			  file  =new File(ResourceUtils.getFile("classpath:").getPath() +"/" +path) ;
+			 if(!file.exists())
+				 file.mkdirs();
+			 return file.getPath();
+		}catch(Exception e){
+			logger.debug("获取文件目录："+e.getMessage());
+		    file  = new File(System.getProperty("user.dir")+"/"+path);
+		    if(!file.exists())
+		    	file.mkdirs();
+		    return file.getPath();
+		}
 	}
 	
 	/**

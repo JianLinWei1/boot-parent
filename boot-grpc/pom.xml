@@ -12,12 +12,10 @@
 	<artifactId>boot-grpc</artifactId>
     <packaging>jar</packaging>
 	<properties>
-		<jackson.version>2.9.8</jackson.version>
-		<grpc.version>1.18.0</grpc.version>
-		<os.plugin.version>1.5.0.Final</os.plugin.version>
+	    <os.plugin.version>1.5.0.Final</os.plugin.version>
 		<protobuf.plugin.version>0.5.1</protobuf.plugin.version>
 		<protoc.version>3.5.1-1</protoc.version>
-		<grpc.stater.version>2.2.0.RELEASE</grpc.stater.version>
+		
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -26,34 +24,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- grpc依赖 -->
-		<dependency>
-			<groupId>io.grpc</groupId>
-			<artifactId>grpc-netty</artifactId>
-			<version>${grpc.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>io.netty</groupId>
-					<artifactId>netty-handler-proxy</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>io.grpc</groupId>
-			<artifactId>grpc-protobuf</artifactId>
-			<version>${grpc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.grpc</groupId>
-			<artifactId>grpc-stub</artifactId>
-			<version>${grpc.version}</version>
-		</dependency>
-		<!-- server -->
-		<dependency>
-			<groupId>net.devh</groupId>
-			<artifactId>grpc-server-spring-boot-starter</artifactId>
-			<version>${grpc.stater.version}</version>
-		</dependency>
+		
 		<!-- client -->
 		<!-- <dependency>
 			<groupId>net.devh</groupId>

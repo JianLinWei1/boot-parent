@@ -74,6 +74,7 @@ public class ShiroConfiguration {
         return securityManager;
     }
 	
+	@Bean
     public CustomRealm customRealm() {
 		CustomRealm customRealm = new CustomRealm();
         return customRealm;
