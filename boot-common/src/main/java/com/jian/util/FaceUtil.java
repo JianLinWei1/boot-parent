@@ -1,4 +1,5 @@
 package com.jian.util;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -39,12 +40,12 @@ public class FaceUtil {
 
 			FaceApi fa = new FaceApiImpl();
 			System.out.println("加载模板。。。。。。。");
-			String tomPath = System.getProperty("catalina.home") ;
-			if(tomPath == null)
-				tomPath = "D:\\JavaTools\\apache-tomcat-7.0.82\\";
-			String tom_dllpath = tomPath + "/dllmodels";
-			int handle2 = fa.LjCreateDetector(tom_dllpath);
-			int handle_verify = fa.LjCreateVerifier(tom_dllpath);
+			String tompath = System.getProperty("user.dir")+ "/models";
+			File  file  = new File(tompath);
+			if(!file.exists())
+				tompath = "D:\\TestFace\\models";
+			int handle2 = fa.LjCreateDetector(tompath);
+			int handle_verify = fa.LjCreateVerifier(tompath);
 			
 			handle  =handle2 ;
 			handle_ver = handle_verify;
