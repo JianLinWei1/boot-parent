@@ -47,7 +47,7 @@ public class HeartBeatUtil {
 			public void run() {
 				while(true){
 					try{
-						Thread.sleep(20000);
+						Thread.sleep(10000);
 						concurrentMap.clear();
 					}catch(Exception e){
 						logger.error(e.getMessage());

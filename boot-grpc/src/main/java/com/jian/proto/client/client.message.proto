@@ -14,6 +14,6 @@ message ClientMessage {
     string deviceAccuracy = 5;   // 经纬度  非必填  格式{"longitude":"XXxx","latitude":"XXxx"}
     string serviceAccount = 6;  // 所属服务账号名  必填
     string servicePassword = 7 ; //所属服务密码 必填
-    string  tcpIp = 8 ;  //tcp/ip
-    string  tcpPort = 9 ; // tcp协议端口
+    string client_ip = 8 ;  //客户端ip
+    int32  client_port = 9 ; //客户端grpc端口
 }

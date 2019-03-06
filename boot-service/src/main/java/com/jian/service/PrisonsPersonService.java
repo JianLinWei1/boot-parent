@@ -2,6 +2,7 @@ package com.jian.service;
 
 import java.util.List;
 
+import com.jian.entity.LjDevice;
 import com.jian.entity.LsPerson;
 import com.jian.entity.LsRecord;
 import com.jian.util.ResultUtil;
@@ -48,4 +49,12 @@ public interface PrisonsPersonService {
 	 * GRPC上传比对记录
 	 */
 	ResultUtil  addLsRecord(List<LsRecord>  lsRecords);
+	/**
+	 * 打开摄像头识别某人
+	 */
+	ResultUtil openCamrea(String deviceSeril , int time , String cardid);
+	
+	LjDevice  getLjDeviceByKey(String deviceSeril);
+	
+	LsPerson getLsPersonByKey(String cardid);
 }

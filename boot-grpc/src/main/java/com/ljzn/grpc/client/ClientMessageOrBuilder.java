@@ -126,37 +126,28 @@ public interface ClientMessageOrBuilder extends
 
   /**
    * <pre>
-   *tcp/ip
+   *客户端ip
    * </pre>
    *
-   * <code>string tcpIp = 8;</code>
+   * <code>string client_ip = 8;</code>
    */
-  java.lang.String getTcpIp();
+  java.lang.String getClientIp();
   /**
    * <pre>
-   *tcp/ip
+   *客户端ip
    * </pre>
    *
-   * <code>string tcpIp = 8;</code>
+   * <code>string client_ip = 8;</code>
    */
   com.google.protobuf.ByteString
-      getTcpIpBytes();
+      getClientIpBytes();
 
   /**
    * <pre>
-   * tcp协议端口
+   *客户端grpc端口
    * </pre>
    *
-   * <code>string tcpPort = 9;</code>
+   * <code>int32 client_port = 9;</code>
    */
-  java.lang.String getTcpPort();
-  /**
-   * <pre>
-   * tcp协议端口
-   * </pre>
-   *
-   * <code>string tcpPort = 9;</code>
-   */
-  com.google.protobuf.ByteString
-      getTcpPortBytes();
+  int getClientPort();
 }

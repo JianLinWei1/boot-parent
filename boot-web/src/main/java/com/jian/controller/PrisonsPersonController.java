@@ -1,16 +1,22 @@
 package com.jian.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.jian.entity.LjDevice;
 import com.jian.entity.LsPerson;
+import com.jian.entity.LsRecord;
+import com.jian.grpcImpl.VerifyGrpc;
 import com.jian.service.PrisonsPersonService;
 import com.jian.util.ActionUtil;
 import com.jian.util.ResultUtil;
@@ -62,12 +68,17 @@ public class PrisonsPersonController {
 	@ApiOperation(value="打开摄像头")
 	@RequestMapping(value="/prisoncamrea/open" ,method = RequestMethod.GET)
 	public ResultUtil openCamrea(@RequestBody String  jsonstr){
-		ResultUtil resultUtil = new ResultUtil();
-		resultUtil.setCode(0);
-		resultUtil.setCount(0);
-		resultUtil.setData(" ");
-		resultUtil.setMsg("ok");
-		return resultUtil;
+		JSONObject json   = new JSONObject(jsonstr);
+		int time = json.getInt("time");
+		LjDevice  device  = pps.getLjDeviceByKey(json.getString("deviceSeril"));
+		LsPerson lsPerson  = pps.getLsPersonByKey(json.getString("cardid"));
+		
+		ResultUtil resultUtil  =  VerifyGrpc.verify(device, lsPerson, time);
+		List<LsRecord>  records  = new ArrayList<>();
+		records.add((LsRecord)resultUtil.getData());
+		if(records.size()>0 && records.get(0) != null)
+			pps.addLsRecord(records);
+		return resultUtil; 
 	}
 	
 	@ApiOperation(value="关闭摄像头")

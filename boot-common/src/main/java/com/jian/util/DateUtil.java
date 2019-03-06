@@ -14,11 +14,15 @@ public class DateUtil {
 	}
 	
 	
-	public static String Long2Date(Long  date)  {
-		
-		return yyyyMMddHHmmss.format(date);
+	public static String Long2DateStr(Long  date , String str)  {
+		SimpleDateFormat  format  =  new SimpleDateFormat(str);
+		return format.format(date);
 	}
 
+	public static Date Long2Date(Long date , String str) throws ParseException{
+		SimpleDateFormat  format  =  new SimpleDateFormat(str);
+		return format.parse(format.format(date));
+	}
 	
 	public static String  Date2yMdHms(Date  date){
 		

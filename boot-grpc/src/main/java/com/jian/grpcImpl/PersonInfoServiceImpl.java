@@ -48,7 +48,7 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
 	 */
 	@Override
 	 public void getPersonInfo(PersoninfoRequest request,StreamObserver<PersoninfoResponse> responseObserver) {
-		HeartBeatUtil.setDeviceSeril(request.getDeviceSeril());
+		/*HeartBeatUtil.setDeviceSeril(request.getDeviceSeril());*/
 		responseObserver.onNext(getPersonInfo(request));
 		responseObserver.onCompleted();
 		      
@@ -106,7 +106,7 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
     		 lr.setDeviceseril(r.getDeviceSeril());
     		 lr.setName(r.getName());
     		 lr.setRecordid(UuidUtil.getUUID());
-    		 lr.setVerifyPhoto(FileUtil.addPicture2Midkirs(r.getVerifyPhoto().toByteArray(), r.getCardId(), "upload/images/"));
+    		 lr.setVerifyPhoto(FileUtil.addPicture2Midkirs(r.getVerifyPhoto().toByteArray(), r.getCardId(), "upload/record/"));
     		 lr.setVerifyTime(DateUtil.String2Date(r.getVerifyTime(), "yyyy-MM-dd HH:mm:ss"));
     		 lr.setVerifyResult(r.getVerifyResult());
     		 lr.setVerifyScore(r.getVerifyScore());

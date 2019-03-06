@@ -132,7 +132,7 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 					break;
 				}
 					
-				count +=lsPersonMapper.updateByPrimaryKey(lp);
+				count +=lsPersonMapper.updateByPrimaryKeyWithBLOBs(lp);
 
 			} catch (IllegalArgumentException e) {
 				face_msg = "base64解码错误";
@@ -202,7 +202,7 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 				logger.error("从文件读图片：ERROR" +e.getMessage());
 			}
 			lp.setAction(null);
-			lp.setDatetime(DateUtil.Long2Date(lp.getVersion()));
+			lp.setDatetime(DateUtil.Long2DateStr(lp.getVersion(),"yyyy-MM-dd HH:mm:ss"));
 			lp.setVersion(null);
 		}
 		PageInfo<LsPerson>  info  = new PageInfo<>(lsPersons);
@@ -227,7 +227,7 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 			lr.setVerifytime(DateUtil.Date2yMdHms(lr.getVerifyTime()));
 			lr.setVerifyTime(null);
 			try {
-				lr.setVerifyPhoto(FileUtil.img_base64_head(FileUtil.getPicture2Byte(lr.getVerifyPhoto() ,"upload/images/")));
+				lr.setVerifyPhoto(FileUtil.img_base64_head(FileUtil.getPicture2Byte(lr.getVerifyPhoto() ,"upload/record/")));
 		} catch (IOException e) {
 			logger.error("从文件读图片：ERROR" +e.getMessage());
 			lr.setVerifyPhoto("失去照片");
@@ -285,6 +285,32 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 		if(i == 1)
 			return  ResultUtil.ok();
 		return ResultUtil.error();
+	}
+
+	@Override
+	public ResultUtil openCamrea(String deviceSeril, int time, String cardid) {
+		
+	 /*LjDevice device =	ljDeviceMapper.selectByPrimaryKey(deviceSeril);
+	 LsPerson  lsPerson = lsPersonMapper.selectByPrimaryKey(cardid);
+	 
+	 ResultUtil resultUtil  =  VerifyGrpc.verify(device, lsPerson, time);
+	 if(resultUtil.getCode() == 0)
+		 lsRecordMapper.insert((LsRecord)resultUtil.getData());
+	 */
+		
+		return null;
+	}
+
+	@Override
+	public LjDevice getLjDeviceByKey(String deviceSeril) {
+		
+		return ljDeviceMapper.selectByPrimaryKey(deviceSeril);
+	}
+
+	@Override
+	public LsPerson getLsPersonByKey(String cardid) {
+		
+		return lsPersonMapper.selectByPrimaryKey(cardid);
 	}
 
 }

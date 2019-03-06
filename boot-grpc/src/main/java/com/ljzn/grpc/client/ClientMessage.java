@@ -23,8 +23,8 @@ private static final long serialVersionUID = 0L;
     deviceAccuracy_ = "";
     serviceAccount_ = "";
     servicePassword_ = "";
-    tcpIp_ = "";
-    tcpPort_ = "";
+    clientIp_ = "";
+    clientPort_ = 0;
   }
 
   @java.lang.Override
@@ -102,13 +102,12 @@ private static final long serialVersionUID = 0L;
           case 66: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            tcpIp_ = s;
+            clientIp_ = s;
             break;
           }
-          case 74: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 72: {
 
-            tcpPort_ = s;
+            clientPort_ = input.readInt32();
             break;
           }
         }
@@ -400,88 +399,59 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TCPIP_FIELD_NUMBER = 8;
-  private volatile java.lang.Object tcpIp_;
+  public static final int CLIENT_IP_FIELD_NUMBER = 8;
+  private volatile java.lang.Object clientIp_;
   /**
    * <pre>
-   *tcp/ip
+   *客户端ip
    * </pre>
    *
-   * <code>string tcpIp = 8;</code>
+   * <code>string client_ip = 8;</code>
    */
-  public java.lang.String getTcpIp() {
-    java.lang.Object ref = tcpIp_;
+  public java.lang.String getClientIp() {
+    java.lang.Object ref = clientIp_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      tcpIp_ = s;
+      clientIp_ = s;
       return s;
     }
   }
   /**
    * <pre>
-   *tcp/ip
+   *客户端ip
    * </pre>
    *
-   * <code>string tcpIp = 8;</code>
+   * <code>string client_ip = 8;</code>
    */
   public com.google.protobuf.ByteString
-      getTcpIpBytes() {
-    java.lang.Object ref = tcpIp_;
+      getClientIpBytes() {
+    java.lang.Object ref = clientIp_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      tcpIp_ = b;
+      clientIp_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int TCPPORT_FIELD_NUMBER = 9;
-  private volatile java.lang.Object tcpPort_;
+  public static final int CLIENT_PORT_FIELD_NUMBER = 9;
+  private int clientPort_;
   /**
    * <pre>
-   * tcp协议端口
+   *客户端grpc端口
    * </pre>
    *
-   * <code>string tcpPort = 9;</code>
+   * <code>int32 client_port = 9;</code>
    */
-  public java.lang.String getTcpPort() {
-    java.lang.Object ref = tcpPort_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      tcpPort_ = s;
-      return s;
-    }
-  }
-  /**
-   * <pre>
-   * tcp协议端口
-   * </pre>
-   *
-   * <code>string tcpPort = 9;</code>
-   */
-  public com.google.protobuf.ByteString
-      getTcpPortBytes() {
-    java.lang.Object ref = tcpPort_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      tcpPort_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public int getClientPort() {
+    return clientPort_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -517,11 +487,11 @@ private static final long serialVersionUID = 0L;
     if (!getServicePasswordBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 7, servicePassword_);
     }
-    if (!getTcpIpBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, tcpIp_);
+    if (!getClientIpBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, clientIp_);
     }
-    if (!getTcpPortBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, tcpPort_);
+    if (clientPort_ != 0) {
+      output.writeInt32(9, clientPort_);
     }
     unknownFields.writeTo(output);
   }
@@ -553,11 +523,12 @@ private static final long serialVersionUID = 0L;
     if (!getServicePasswordBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, servicePassword_);
     }
-    if (!getTcpIpBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, tcpIp_);
+    if (!getClientIpBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, clientIp_);
     }
-    if (!getTcpPortBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, tcpPort_);
+    if (clientPort_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(9, clientPort_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -589,10 +560,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getServiceAccount());
     result = result && getServicePassword()
         .equals(other.getServicePassword());
-    result = result && getTcpIp()
-        .equals(other.getTcpIp());
-    result = result && getTcpPort()
-        .equals(other.getTcpPort());
+    result = result && getClientIp()
+        .equals(other.getClientIp());
+    result = result && (getClientPort()
+        == other.getClientPort());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -618,10 +589,10 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getServiceAccount().hashCode();
     hash = (37 * hash) + SERVICEPASSWORD_FIELD_NUMBER;
     hash = (53 * hash) + getServicePassword().hashCode();
-    hash = (37 * hash) + TCPIP_FIELD_NUMBER;
-    hash = (53 * hash) + getTcpIp().hashCode();
-    hash = (37 * hash) + TCPPORT_FIELD_NUMBER;
-    hash = (53 * hash) + getTcpPort().hashCode();
+    hash = (37 * hash) + CLIENT_IP_FIELD_NUMBER;
+    hash = (53 * hash) + getClientIp().hashCode();
+    hash = (37 * hash) + CLIENT_PORT_FIELD_NUMBER;
+    hash = (53 * hash) + getClientPort();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -765,9 +736,9 @@ private static final long serialVersionUID = 0L;
 
       servicePassword_ = "";
 
-      tcpIp_ = "";
+      clientIp_ = "";
 
-      tcpPort_ = "";
+      clientPort_ = 0;
 
       return this;
     }
@@ -798,8 +769,8 @@ private static final long serialVersionUID = 0L;
       result.deviceAccuracy_ = deviceAccuracy_;
       result.serviceAccount_ = serviceAccount_;
       result.servicePassword_ = servicePassword_;
-      result.tcpIp_ = tcpIp_;
-      result.tcpPort_ = tcpPort_;
+      result.clientIp_ = clientIp_;
+      result.clientPort_ = clientPort_;
       onBuilt();
       return result;
     }
@@ -868,13 +839,12 @@ private static final long serialVersionUID = 0L;
         servicePassword_ = other.servicePassword_;
         onChanged();
       }
-      if (!other.getTcpIp().isEmpty()) {
-        tcpIp_ = other.tcpIp_;
+      if (!other.getClientIp().isEmpty()) {
+        clientIp_ = other.clientIp_;
         onChanged();
       }
-      if (!other.getTcpPort().isEmpty()) {
-        tcpPort_ = other.tcpPort_;
-        onChanged();
+      if (other.getClientPort() != 0) {
+        setClientPort(other.getClientPort());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1475,21 +1445,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object tcpIp_ = "";
+    private java.lang.Object clientIp_ = "";
     /**
      * <pre>
-     *tcp/ip
+     *客户端ip
      * </pre>
      *
-     * <code>string tcpIp = 8;</code>
+     * <code>string client_ip = 8;</code>
      */
-    public java.lang.String getTcpIp() {
-      java.lang.Object ref = tcpIp_;
+    public java.lang.String getClientIp() {
+      java.lang.Object ref = clientIp_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        tcpIp_ = s;
+        clientIp_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
@@ -1497,19 +1467,19 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     *tcp/ip
+     *客户端ip
      * </pre>
      *
-     * <code>string tcpIp = 8;</code>
+     * <code>string client_ip = 8;</code>
      */
     public com.google.protobuf.ByteString
-        getTcpIpBytes() {
-      java.lang.Object ref = tcpIp_;
+        getClientIpBytes() {
+      java.lang.Object ref = clientIp_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        tcpIp_ = b;
+        clientIp_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1517,138 +1487,87 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <pre>
-     *tcp/ip
+     *客户端ip
      * </pre>
      *
-     * <code>string tcpIp = 8;</code>
+     * <code>string client_ip = 8;</code>
      */
-    public Builder setTcpIp(
+    public Builder setClientIp(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      tcpIp_ = value;
+      clientIp_ = value;
       onChanged();
       return this;
     }
     /**
      * <pre>
-     *tcp/ip
+     *客户端ip
      * </pre>
      *
-     * <code>string tcpIp = 8;</code>
+     * <code>string client_ip = 8;</code>
      */
-    public Builder clearTcpIp() {
+    public Builder clearClientIp() {
       
-      tcpIp_ = getDefaultInstance().getTcpIp();
+      clientIp_ = getDefaultInstance().getClientIp();
       onChanged();
       return this;
     }
     /**
      * <pre>
-     *tcp/ip
+     *客户端ip
      * </pre>
      *
-     * <code>string tcpIp = 8;</code>
+     * <code>string client_ip = 8;</code>
      */
-    public Builder setTcpIpBytes(
+    public Builder setClientIpBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      tcpIp_ = value;
+      clientIp_ = value;
       onChanged();
       return this;
     }
 
-    private java.lang.Object tcpPort_ = "";
+    private int clientPort_ ;
     /**
      * <pre>
-     * tcp协议端口
+     *客户端grpc端口
      * </pre>
      *
-     * <code>string tcpPort = 9;</code>
+     * <code>int32 client_port = 9;</code>
      */
-    public java.lang.String getTcpPort() {
-      java.lang.Object ref = tcpPort_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        tcpPort_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public int getClientPort() {
+      return clientPort_;
     }
     /**
      * <pre>
-     * tcp协议端口
+     *客户端grpc端口
      * </pre>
      *
-     * <code>string tcpPort = 9;</code>
+     * <code>int32 client_port = 9;</code>
      */
-    public com.google.protobuf.ByteString
-        getTcpPortBytes() {
-      java.lang.Object ref = tcpPort_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        tcpPort_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <pre>
-     * tcp协议端口
-     * </pre>
-     *
-     * <code>string tcpPort = 9;</code>
-     */
-    public Builder setTcpPort(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      tcpPort_ = value;
+    public Builder setClientPort(int value) {
+      
+      clientPort_ = value;
       onChanged();
       return this;
     }
     /**
      * <pre>
-     * tcp协议端口
+     *客户端grpc端口
      * </pre>
      *
-     * <code>string tcpPort = 9;</code>
+     * <code>int32 client_port = 9;</code>
      */
-    public Builder clearTcpPort() {
+    public Builder clearClientPort() {
       
-      tcpPort_ = getDefaultInstance().getTcpPort();
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     * tcp协议端口
-     * </pre>
-     *
-     * <code>string tcpPort = 9;</code>
-     */
-    public Builder setTcpPortBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      tcpPort_ = value;
+      clientPort_ = 0;
       onChanged();
       return this;
     }

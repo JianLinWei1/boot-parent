@@ -4,6 +4,7 @@ import com.jian.entity.LjDevice;
 import com.jian.entity.SysAdmin;
 import com.jian.service.DeviceService;
 import com.jian.service.SysAdminService;
+import com.jian.util.HeartBeatUtil;
 import com.ljzn.grpc.client.ClientAuthServiceGrpc.ClientAuthServiceImplBase;
 import com.ljzn.grpc.client.HeartbeatRequest;
 import com.ljzn.grpc.client.HeartbeatResponse;
@@ -12,6 +13,8 @@ import com.ljzn.grpc.client.HeartbeatResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ljzn.grpc.client.LoginRequest;
@@ -30,6 +33,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
  */
 @GrpcService
 public class ClientServiceImpl  extends ClientAuthServiceImplBase {
+	private  Logger logger  = LoggerFactory.getLogger(ClientServiceImpl.class);
 	private  String sign = "2e18e0f4a65a44c1cb6ca5cad46b5f95";
 	@Autowired
 	private  SysAdminService  sas ;
@@ -76,9 +80,9 @@ public class ClientServiceImpl  extends ClientAuthServiceImplBase {
 		  device.setDeviceAddress(request.getClient().getDeviceAddress());
 		  device.setDeviceAccuracy(request.getClient().getDeviceName());
 		  device.setDeviceType(request.getClient().getDeviceType());
-		  device.setTcpIp(request.getClient().getTcpIp());
-		  if(StringUtils.isNotEmpty(request.getClient().getTcpPort()))
-		  device.setTcpPort(Integer.valueOf(request.getClient().getTcpPort()));
+		  device.setTcpIp(request.getClient().getClientIp());
+		  /*if(StringUtils.isNotEmpty(request.getClient().getClientPort()))*/
+		  device.setTcpPort(Integer.valueOf(request.getClient().getClientPort()));
 		  if(device_1 == null){
 			int i=  ds.addDevice(device);
 			builder.setCode(i);
@@ -87,10 +91,10 @@ public class ClientServiceImpl  extends ClientAuthServiceImplBase {
 			System.out.println("设备登录成功");
 			return builder.build();
 		  }else{
-			 if(!device_1.getMerchantId().equals(device.getMerchantId())){
+			/* if(!device_1.getMerchantId().equals(device.getMerchantId())){
 				 ds.upDevice(device);
-			 }
-			
+			 }*/
+			 ds.upDevice(device);
 			 builder.setCode(1);
 			 System.out.println("设备登录成功");
 			 builder.setMessage("已存在该序列号设备,已更新其他信息");
@@ -109,6 +113,7 @@ public class ClientServiceImpl  extends ClientAuthServiceImplBase {
 	/**
 	 * 心跳
      */
+	@Override
     public void heartBeat(HeartbeatRequest request,StreamObserver<HeartbeatResponse> responseObserver) {
          HeartbeatResponse.Builder  builder =  HeartbeatResponse.newBuilder();
          String  deviceSeril =  request.getDeviceSeril();
@@ -117,9 +122,10 @@ public class ClientServiceImpl  extends ClientAuthServiceImplBase {
         	 builder.setCode(-1);
         	 builder.setMessage("设备暂未登录Device not logged in");
          }else{
-        	 
+        	 HeartBeatUtil.setDeviceSeril(request.getDeviceSeril());
         	 builder.setCode(1);
         	 builder.setMessage("心跳发送成功HeartBeat send  ok");
+        	 logger.info("心跳发送成功HeartBeat send  ok");
          }
          responseObserver.onNext(builder.build());
          responseObserver.onCompleted();
