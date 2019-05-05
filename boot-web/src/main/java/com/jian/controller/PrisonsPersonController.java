@@ -19,6 +19,7 @@ import com.jian.entity.LsRecord;
 import com.jian.grpcImpl.VerifyGrpc;
 import com.jian.service.PrisonsPersonService;
 import com.jian.util.ActionUtil;
+import com.jian.util.RecordUploadUtil;
 import com.jian.util.ResultUtil;
 
 import io.swagger.annotations.Api;
@@ -31,6 +32,11 @@ import io.swagger.annotations.ApiOperation;
 public class PrisonsPersonController {
 	@Autowired
 	PrisonsPersonService  pps;
+	
+	@Autowired
+	VerifyGrpc   verifyGrpc;
+	@Autowired
+	RecordUploadUtil util;
 	
 	@ApiOperation(value = "人员信息"  , notes = "")
 	@RequestMapping(value = "/prisonstaff/{str}" , method = RequestMethod.POST)
@@ -66,23 +72,26 @@ public class PrisonsPersonController {
 	}
 	
 	@ApiOperation(value="打开摄像头")
-	@RequestMapping(value="/prisoncamrea/open" ,method = RequestMethod.GET)
+	@RequestMapping(value="/prisoncamrea/open" ,method = RequestMethod.POST)
 	public ResultUtil openCamrea(@RequestBody String  jsonstr){
 		JSONObject json   = new JSONObject(jsonstr);
 		int time = json.getInt("time");
 		LjDevice  device  = pps.getLjDeviceByKey(json.getString("deviceSeril"));
 		LsPerson lsPerson  = pps.getLsPersonByKey(json.getString("cardid"));
+		if(lsPerson == null || device == null)
+			return ResultUtil.error("人员或设备不存在");
 		
-		ResultUtil resultUtil  =  VerifyGrpc.verify(device, lsPerson, time);
-		List<LsRecord>  records  = new ArrayList<>();
+		 verifyGrpc.verify(device, lsPerson, time ,pps,util);
+		/*List<LsRecord>  records  = new ArrayList<>();
 		records.add((LsRecord)resultUtil.getData());
 		if(records.size()>0 && records.get(0) != null)
-			pps.addLsRecord(records);
-		return resultUtil; 
+			pps.addLsRecord(records);*/
+		
+		return  ResultUtil.ok("请求成功"); 
 	}
 	
 	@ApiOperation(value="关闭摄像头")
-	@RequestMapping(value="/prisoncamrea/close" ,method = RequestMethod.GET)
+	@RequestMapping(value="/prisoncamrea/close" ,method = RequestMethod.POST)
 	public ResultUtil closeCamrea(@RequestBody String deviceseril){
 		ResultUtil resultUtil = new ResultUtil();
 		resultUtil.setCode(0);

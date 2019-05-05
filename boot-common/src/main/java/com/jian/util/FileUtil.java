@@ -109,6 +109,7 @@ public class FileUtil {
 	 * @throws
 	 */
 	public static byte[]  Base642Byte(String base64){
+		base64 =  base64.replaceAll("[\\s*\t\n\r]", "");
 		Base64.Decoder decoder  = Base64.getDecoder();
 		if(StringUtils.isNotEmpty(base64))
 			return decoder.decode(base64);

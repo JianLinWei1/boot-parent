@@ -1,10 +1,13 @@
 package com.jian.grpcImpl;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
 import com.biology.entity.LjFeature;
 import com.biology.face.FaceApi;
@@ -13,9 +16,11 @@ import com.google.common.primitives.Floats;
 import com.jian.entity.LjDevice;
 import com.jian.entity.LsPerson;
 import com.jian.entity.LsRecord;
+import com.jian.service.PrisonsPersonService;
 import com.jian.util.DateUtil;
 import com.jian.util.FileUtil;
 import com.jian.util.HeartBeatUtil;
+import com.jian.util.RecordUploadUtil;
 import com.jian.util.ResultUtil;
 import com.jian.util.UuidUtil;
 import com.ljzn.grpc.client.VerifyRequest;
@@ -35,6 +40,7 @@ import io.grpc.ManagedChannelBuilder;
  * @date:   2019年2月21日 上午10:07:10   
  *
  */
+@Component
 public class VerifyGrpc {
 	private  static Logger  logger =  LoggerFactory.getLogger(VerifyGrpc.class);
 	
@@ -44,7 +50,8 @@ public class VerifyGrpc {
 	
 	
 	
-	public static  ResultUtil  verify(LjDevice device , LsPerson lsPerson , int delayTime ){
+	@Async
+	public  ResultUtil  verify(LjDevice device , LsPerson lsPerson , int delayTime ,PrisonsPersonService pps ,RecordUploadUtil util ){
 		ResultUtil resultUtil  = new ResultUtil();
 		try{
 			if(!HeartBeatUtil.getDeivceState(device.getDeviceSeril()))
@@ -74,12 +81,17 @@ public class VerifyGrpc {
 		record.setVerifyPhoto(FileUtil.addPicture2Midkirs(response.getPhoto().toByteArray(), lsPerson.getCardid(), "upload/record/"));
 		record.setVerifyScore(response.getScore());
 		record.setVerifyTime(DateUtil.Long2Date(response.getVerifyTime() , "yyyy-MM-dd HH:mm:ss"));
-		
+		record.setType(0);
 		if(response.getResult() == 1){
 			resultUtil.setCode(0);
 			resultUtil.setMsg(response.getMessage());
 			record.setVerifyResult("成功");
-			resultUtil.setData(record);
+			List<LsRecord>  records  = new ArrayList<>();
+			records.add((LsRecord)resultUtil.getData());
+			if(records.size()>0 && records.get(0) != null){
+				pps.addLsRecord(records);
+				util.upload(records.get(0));
+			}
 			return resultUtil;
 		}else{
 			resultUtil.setCode(-1);

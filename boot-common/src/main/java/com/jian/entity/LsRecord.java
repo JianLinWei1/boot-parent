@@ -23,6 +23,8 @@ public class LsRecord implements Serializable {
     private String merchantId;
     
     private String verifytime;
+    
+    private int  type ;
 
     private static final long serialVersionUID = 1L;
 
@@ -104,6 +106,14 @@ public class LsRecord implements Serializable {
 
 	public void setVerifytime(String verifytime) {
 		this.verifytime = verifytime;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
     
     

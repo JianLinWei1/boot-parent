@@ -53,8 +53,16 @@ public interface PrisonsPersonService {
 	 * 打开摄像头识别某人
 	 */
 	ResultUtil openCamrea(String deviceSeril , int time , String cardid);
-	
+	/**
+	 * 根据设备序列号获取设备
+	 */
 	LjDevice  getLjDeviceByKey(String deviceSeril);
-	
+	/**
+	 * 根据卡号获取人员
+	 */
 	LsPerson getLsPersonByKey(String cardid);
+	/**
+	 * 根据版本获取人员信息
+	 */
+	List<LsPerson>  getLsPersonsByVersionAndType(long version , int type );
 }

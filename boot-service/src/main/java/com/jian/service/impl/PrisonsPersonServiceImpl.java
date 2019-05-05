@@ -52,10 +52,12 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 			try {
 				if(StringUtils.isNotEmpty(lp.getCardid())
 						&&lsPersonMapper.selectByPrimaryKey(lp.getCardid()) != null){
-					face_msg ="已存在";
+					
+					return  updatePrisonsPerson(list);
+					/*face_msg ="已存在";
 					lp.setPhoto("");
 					resultUtil.setData(JSON.toJSON(lp).toString());
-					break;
+					break;*/
 				}
 					
 				byte[] bs = FileUtil.Base642Byte(lp.getPhoto());
@@ -79,6 +81,8 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 
 			} catch (IllegalArgumentException e) {
 				face_msg = "base64解码错误";
+				System.out.println(lp.getPhoto().replaceAll("[\\s*\t\n\r]", ""));
+				logger.error(e.getMessage(), e);
 				resultUtil.setData(JSON.toJSON(lp).toString());
 				break;
 			}catch(Exception e){
@@ -289,8 +293,9 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 
 	@Override
 	public ResultUtil openCamrea(String deviceSeril, int time, String cardid) {
+		return null;
 		
-	 /*LjDevice device =	ljDeviceMapper.selectByPrimaryKey(deviceSeril);
+	/* LjDevice device =	ljDeviceMapper.selectByPrimaryKey(deviceSeril);
 	 LsPerson  lsPerson = lsPersonMapper.selectByPrimaryKey(cardid);
 	 
 	 ResultUtil resultUtil  =  VerifyGrpc.verify(device, lsPerson, time);
@@ -298,7 +303,7 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 		 lsRecordMapper.insert((LsRecord)resultUtil.getData());
 	 */
 		
-		return null;
+		
 	}
 
 	@Override
@@ -311,6 +316,17 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 	public LsPerson getLsPersonByKey(String cardid) {
 		
 		return lsPersonMapper.selectByPrimaryKey(cardid);
+	}
+
+	@Override
+	public List<LsPerson> getLsPersonsByVersionAndType(long version, int type) {
+		LsPersonExample  example  = new LsPersonExample();
+		Criteria  criteria  =  example.createCriteria();
+		example.setOrderByClause("version  ASC");
+		criteria.andVersionGreaterThan(version);
+		criteria.andPersontypeEqualTo(type);
+		
+		return lsPersonMapper.selectByExampleWithBLOBs(example);
 	}
 
 }

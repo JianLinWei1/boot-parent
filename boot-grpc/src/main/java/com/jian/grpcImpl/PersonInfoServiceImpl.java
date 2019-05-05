@@ -17,6 +17,7 @@ import com.jian.service.PrisonsPersonService;
 import com.jian.util.DateUtil;
 import com.jian.util.FileUtil;
 import com.jian.util.HeartBeatUtil;
+import com.jian.util.RecordUploadUtil;
 import com.jian.util.UuidUtil;
 import com.ljzn.grpc.personinfo.PersonInfoAuthServiceGrpc.PersonInfoAuthServiceImplBase;
 import com.ljzn.grpc.personinfo.PersonType;
@@ -43,12 +44,15 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
 	private  Logger  logger =  LoggerFactory.getLogger("GPRC监所人员实现类："+ PersonInfoServiceImpl.class);
 	@Autowired
 	PrisonsPersonService pps;
+	
+	@Autowired
+	RecordUploadUtil  recordUploadUtil;
 	/**
 	 * 获取人员信息
 	 */
 	@Override
 	 public void getPersonInfo(PersoninfoRequest request,StreamObserver<PersoninfoResponse> responseObserver) {
-		/*HeartBeatUtil.setDeviceSeril(request.getDeviceSeril());*/
+		HeartBeatUtil.setDeviceSeril(request.getDeviceSeril());
 		responseObserver.onNext(getPersonInfo(request));
 		responseObserver.onCompleted();
 		      
@@ -61,7 +65,7 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
 		List<PersoninfoMessage> messages = new ArrayList<>();*/
 		
 		FaceApi api  = new FaceApiImpl();
-		List<LsPerson>  lsPersons  =  pps.getLsPersonsByVersion(request.getVersion());
+		List<LsPerson>  lsPersons  =  pps.getLsPersonsByVersionAndType(request.getVersion(),request.getPersontypeValue());
 		for(LsPerson l : lsPersons){
 			Builder  mBuilder = builder.addPersonInfoBuilder();
 			mBuilder.setCardId(l.getCardid());
@@ -86,7 +90,8 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
 		}catch(Exception e){
 			builder.setCode(-1);
 			builder.setMessage("异常信息："+e.getMessage());
-			logger.error(e.getMessage());
+			logger.error(e.getMessage(),e);
+			
 			return builder.build();
 		}
 	}
@@ -110,10 +115,13 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
     		 lr.setVerifyTime(DateUtil.String2Date(r.getVerifyTime(), "yyyy-MM-dd HH:mm:ss"));
     		 lr.setVerifyResult(r.getVerifyResult());
     		 lr.setVerifyScore(r.getVerifyScore());
+    		 lr.setType(1);
     		 records.add(lr);
+    		 recordUploadUtil.upload(lr);
     	 }
     	  
     	 pps.addLsRecord(records);
+    	 
     	 builder.setCode(1);
     	 builder.setMessage("ok");
     	 
