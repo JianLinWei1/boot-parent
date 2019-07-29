@@ -76,7 +76,9 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 					face_msg = "500,存入图片异常";
 					break;
 				}
-					
+				
+				
+				
 				count +=lsPersonMapper.insert(lp);
 
 			} catch (IllegalArgumentException e) {

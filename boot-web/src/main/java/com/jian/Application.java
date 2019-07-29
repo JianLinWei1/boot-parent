@@ -1,8 +1,6 @@
 package com.jian;
 
 
-
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +18,7 @@ public class Application {
 	  FaceUtil.createHandle();
 	 HeartBeatUtil.handleConcurrentMap();
 	SpringApplication.run(Application.class);
+	 
 }
   
   

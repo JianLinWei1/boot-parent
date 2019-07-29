@@ -34,6 +34,12 @@
         <dependency>
 			<groupId>com.jian</groupId>
 			<artifactId>boot-service</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>BiologyWebJar.jar</groupId>

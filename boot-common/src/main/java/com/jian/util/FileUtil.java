@@ -32,7 +32,8 @@ public class FileUtil {
 	public static String getMidkirs(String path) throws FileNotFoundException{
 		 File  file;
 		try{
-			  file  =new File(ResourceUtils.getFile("classpath:").getPath() +"/" +path) ;
+//			  file  =new File(ResourceUtils.getFile("classpath:").getPath() +"/" +path) ;
+			  file = new File("D:/upload/"+path);
 			 if(!file.exists())
 				 file.mkdirs();
 			 return file.getPath();

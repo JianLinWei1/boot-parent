@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSON;
 import com.biology.entity.LjFeature;
 import com.biology.face.FaceApi;
 import com.biology.face.FaceApiImpl;
@@ -73,6 +75,7 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
 			mBuilder.setPersontype(PersonType.forNumber(l.getPersontype()));
 			LjFeature ljFeature = api.ByteToFeature(l.getPhotofeatrue());
 			List<Float>  floats  = Floats.asList(ljFeature.data);
+//			logger.info("grpc获取特征:"+l.getName()+ JSON.toJSONString(floats));
 			mBuilder.addAllPhotoFeature(floats);
 			mBuilder.setPhotoFeatureLen(ljFeature.len);
 			if(request.getNeedPhoto())

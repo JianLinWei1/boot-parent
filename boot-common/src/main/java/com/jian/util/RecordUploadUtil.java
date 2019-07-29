@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
@@ -78,9 +79,12 @@ public class RecordUploadUtil {
 		}
 	 
 	 
+	 @Async
 	 public   String upload(LsRecord ljRecord ){
+		 String strp = ljRecord.getVerifyPhoto();
 			try {
-				ljRecord.setVerifyPhoto(FileUtil.img_base64_head(FileUtil.getPicture2Byte(ljRecord.getVerifyPhoto(), "upload/record/")));
+				
+				ljRecord.setVerifyPhoto(FileUtil.img_base64_head(FileUtil.getPicture2Byte(strp, "upload/record/")));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -90,6 +94,7 @@ public class RecordUploadUtil {
 			post.setEntity(new StringEntity(JSON.toJSONString(ljRecord), Charset.forName("UTF-8")));
 			String str = getRes(httpClient, post);
 			logger.info(str);
+			ljRecord.setVerifyPhoto(strp);
 			return str;
 		}
 }

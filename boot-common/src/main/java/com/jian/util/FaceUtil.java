@@ -10,6 +10,8 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
+
+import com.alibaba.fastjson.JSON;
 import com.biology.entity.LjFace;
 import com.biology.entity.LjFeature;
 import com.biology.entity.LjImageType;
@@ -135,6 +137,7 @@ public class FaceUtil {
 			ljfeature =	fa.LjExtractFeature(handle_ver, LjImageType.LJ_IMAGE_BGR8UC3.getValue(), imgdata, mat.width(), mat.height(), ljface.get(0));
 	       
 		}
+//		System.out.println("创建时提取的特征：" + JSON.toJSONString(ljfeature));
 		return  fa.FeatureToByte(ljfeature);
 	}
 
