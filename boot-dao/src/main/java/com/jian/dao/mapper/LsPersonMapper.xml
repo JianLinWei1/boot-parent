@@ -9,6 +9,8 @@
     <result column="version" jdbcType="BIGINT" property="version" />
     <result column="action" jdbcType="INTEGER" property="action" />
     <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jian.entity.LsPerson">
     <result column="photoFeatrue" jdbcType="LONGVARBINARY" property="photofeatrue" />
@@ -72,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    cardId, name, personType, photo, version, action, merchant_id
+    cardId, name, personType, photo, version, action, merchant_id, start_date, end_date
   </sql>
   <sql id="Blob_Column_List">
     photoFeatrue
@@ -128,10 +130,12 @@
   <insert id="insert" parameterType="com.jian.entity.LsPerson">
     insert into ls_person (cardId, name, personType, 
       photo, version, action, 
-      merchant_id, photoFeatrue)
+      merchant_id, start_date, end_date, 
+      photoFeatrue)
     values (#{cardid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{persontype,jdbcType=INTEGER}, 
       #{photo,jdbcType=VARCHAR}, #{version,jdbcType=BIGINT}, #{action,jdbcType=INTEGER}, 
-      #{merchantId,jdbcType=VARCHAR}, #{photofeatrue,jdbcType=LONGVARBINARY})
+      #{merchantId,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{photofeatrue,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="com.jian.entity.LsPerson">
     insert into ls_person
@@ -156,6 +160,12 @@
       </if>
       <if test="merchantId != null">
         merchant_id,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
       </if>
       <if test="photofeatrue != null">
         photoFeatrue,
@@ -182,6 +192,12 @@
       </if>
       <if test="merchantId != null">
         #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="photofeatrue != null">
         #{photofeatrue,jdbcType=LONGVARBINARY},
@@ -218,6 +234,12 @@
       <if test="record.merchantId != null">
         merchant_id = #{record.merchantId,jdbcType=VARCHAR},
       </if>
+      <if test="record.startDate != null">
+        start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null">
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.photofeatrue != null">
         photoFeatrue = #{record.photofeatrue,jdbcType=LONGVARBINARY},
       </if>
@@ -235,6 +257,8 @@
       version = #{record.version,jdbcType=BIGINT},
       action = #{record.action,jdbcType=INTEGER},
       merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
       photoFeatrue = #{record.photofeatrue,jdbcType=LONGVARBINARY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +272,9 @@
       photo = #{record.photo,jdbcType=VARCHAR},
       version = #{record.version,jdbcType=BIGINT},
       action = #{record.action,jdbcType=INTEGER},
-      merchant_id = #{record.merchantId,jdbcType=VARCHAR}
+      merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -274,6 +300,12 @@
       <if test="merchantId != null">
         merchant_id = #{merchantId,jdbcType=VARCHAR},
       </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="photofeatrue != null">
         photoFeatrue = #{photofeatrue,jdbcType=LONGVARBINARY},
       </if>
@@ -288,6 +320,8 @@
       version = #{version,jdbcType=BIGINT},
       action = #{action,jdbcType=INTEGER},
       merchant_id = #{merchantId,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
       photoFeatrue = #{photofeatrue,jdbcType=LONGVARBINARY}
     where cardId = #{cardid,jdbcType=VARCHAR}
   </update>
@@ -298,7 +332,9 @@
       photo = #{photo,jdbcType=VARCHAR},
       version = #{version,jdbcType=BIGINT},
       action = #{action,jdbcType=INTEGER},
-      merchant_id = #{merchantId,jdbcType=VARCHAR}
+      merchant_id = #{merchantId,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP}
     where cardId = #{cardid,jdbcType=VARCHAR}
   </update>
   <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.jian.entity.LsPersonExample" resultMap="ResultMapWithBLOBs">

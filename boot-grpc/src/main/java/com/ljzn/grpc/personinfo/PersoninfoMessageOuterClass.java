@@ -34,18 +34,19 @@ public final class PersoninfoMessageOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n#personinfo/personinfo.message.proto\022\014P" +
-      "risonSystem\"\276\001\n\021PersoninfoMessage\022\016\n\006car" +
+      "risonSystem\"\342\001\n\021PersoninfoMessage\022\016\n\006car" +
       "dId\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022,\n\npersontype\030\003 " +
       "\001(\0162\030.PrisonSystem.PersonType\022\024\n\014photoFe" +
       "ature\030\004 \003(\002\022\027\n\017photoFeatureLen\030\005 \001(\003\022\r\n\005" +
       "photo\030\006 \001(\014\022\017\n\007version\030\007 \001(\003\022\016\n\006action\030\010" +
-      " \001(\005\"\223\001\n\nRecordInfo\022\016\n\006cardId\030\001 \001(\t\022\014\n\004n" +
-      "ame\030\002 \001(\t\022\022\n\nverifyTime\030\003 \001(\t\022\023\n\013verifyS" +
-      "core\030\004 \001(\002\022\023\n\013verifyPhoto\030\005 \001(\014\022\023\n\013devic" +
-      "eSeril\030\006 \001(\t\022\024\n\014verifyResult\030\007 \001(\t*&\n\nPe" +
-      "rsonType\022\n\n\006Police\020\000\022\014\n\010Criminal\020\001B)\n\030co" +
-      "m.ljzn.grpc.personinfoP\001\242\002\nPERSONINFOb\006p" +
-      "roto3"
+      " \001(\005\022\021\n\tstartDate\030\t \001(\t\022\017\n\007endDate\030\n \001(\t" +
+      "\"\223\001\n\nRecordInfo\022\016\n\006cardId\030\001 \001(\t\022\014\n\004name\030" +
+      "\002 \001(\t\022\022\n\nverifyTime\030\003 \001(\t\022\023\n\013verifyScore" +
+      "\030\004 \001(\002\022\023\n\013verifyPhoto\030\005 \001(\014\022\023\n\013deviceSer" +
+      "il\030\006 \001(\t\022\024\n\014verifyResult\030\007 \001(\t*3\n\nPerson" +
+      "Type\022\n\n\006Police\020\000\022\014\n\010Criminal\020\001\022\013\n\007Visito" +
+      "r\020\002B)\n\030com.ljzn.grpc.personinfoP\001\242\002\nPERS" +
+      "ONINFOb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -64,7 +65,7 @@ public final class PersoninfoMessageOuterClass {
     internal_static_PrisonSystem_PersoninfoMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PrisonSystem_PersoninfoMessage_descriptor,
-        new java.lang.String[] { "CardId", "Name", "Persontype", "PhotoFeature", "PhotoFeatureLen", "Photo", "Version", "Action", });
+        new java.lang.String[] { "CardId", "Name", "Persontype", "PhotoFeature", "PhotoFeatureLen", "Photo", "Version", "Action", "StartDate", "EndDate", });
     internal_static_PrisonSystem_RecordInfo_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_PrisonSystem_RecordInfo_fieldAccessorTable = new

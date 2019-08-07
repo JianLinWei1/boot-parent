@@ -82,6 +82,8 @@ public class PersonInfoServiceImpl extends  PersonInfoAuthServiceImplBase {
 				mBuilder.setPhoto(ByteString.copyFrom(FileUtil.getPicture2Byte(l.getPhoto(), "upload/images/")));
 			mBuilder.setVersion(l.getVersion());
 			mBuilder.setAction(l.getAction());
+			mBuilder.setStartDate(DateUtil.Date2yMdHms(l.getStartDate()));
+			mBuilder.setEndDate(DateUtil.Date2yMdHms(l.getEndDate()));
 			
 			
 			logger.info("获取人员cardid:"+mBuilder.getCardId());

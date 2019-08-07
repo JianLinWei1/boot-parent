@@ -1,7 +1,7 @@
 package com.jian.entity;
 
 import java.io.Serializable;
-
+import java.util.Date;
 
 public class LsPerson implements Serializable {
     private String cardid;
@@ -17,6 +17,10 @@ public class LsPerson implements Serializable {
     private Integer action;
 
     private String merchantId;
+
+    private Date startDate;
+
+    private Date endDate;
 
     private byte[] photofeatrue;
     
@@ -80,6 +84,22 @@ public class LsPerson implements Serializable {
         this.merchantId = merchantId == null ? null : merchantId.trim();
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public byte[] getPhotofeatrue() {
         return photofeatrue;
     }
@@ -95,7 +115,5 @@ public class LsPerson implements Serializable {
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
 	}
-
-	
     
 }

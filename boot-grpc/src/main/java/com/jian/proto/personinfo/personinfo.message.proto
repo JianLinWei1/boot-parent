@@ -9,6 +9,7 @@ package PrisonSystem;
 enum  PersonType{
     Police = 0 ; //警
     Criminal = 1 ; //犯
+    Visitor = 2 ;//访客
 }
    
 //人员基本信息
@@ -21,6 +22,9 @@ message  PersoninfoMessage{
   bytes  photo = 6 ; //照片（可选)
   int64  version = 7 ;
   int32  action = 8 ; //操作 -1删除  1 增加 2 更新
+  string startDate = 9 ;// 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+  string endDate = 10 ;// 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+  
   
 }
 //记录信息

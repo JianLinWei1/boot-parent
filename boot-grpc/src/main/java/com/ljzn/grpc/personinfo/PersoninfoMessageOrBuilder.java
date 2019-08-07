@@ -116,4 +116,40 @@ public interface PersoninfoMessageOrBuilder extends
    * <code>int32 action = 8;</code>
    */
   int getAction();
+
+  /**
+   * <pre>
+   * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+   * </pre>
+   *
+   * <code>string startDate = 9;</code>
+   */
+  java.lang.String getStartDate();
+  /**
+   * <pre>
+   * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+   * </pre>
+   *
+   * <code>string startDate = 9;</code>
+   */
+  com.google.protobuf.ByteString
+      getStartDateBytes();
+
+  /**
+   * <pre>
+   * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+   * </pre>
+   *
+   * <code>string endDate = 10;</code>
+   */
+  java.lang.String getEndDate();
+  /**
+   * <pre>
+   * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+   * </pre>
+   *
+   * <code>string endDate = 10;</code>
+   */
+  com.google.protobuf.ByteString
+      getEndDateBytes();
 }

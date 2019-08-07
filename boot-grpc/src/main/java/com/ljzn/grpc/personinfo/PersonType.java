@@ -24,6 +24,14 @@ public enum PersonType
    * <code>Criminal = 1;</code>
    */
   Criminal(1),
+  /**
+   * <pre>
+   *访客
+   * </pre>
+   *
+   * <code>Visitor = 2;</code>
+   */
+  Visitor(2),
   UNRECOGNIZED(-1),
   ;
 
@@ -43,6 +51,14 @@ public enum PersonType
    * <code>Criminal = 1;</code>
    */
   public static final int Criminal_VALUE = 1;
+  /**
+   * <pre>
+   *访客
+   * </pre>
+   *
+   * <code>Visitor = 2;</code>
+   */
+  public static final int Visitor_VALUE = 2;
 
 
   public final int getNumber() {
@@ -65,6 +81,7 @@ public enum PersonType
     switch (value) {
       case 0: return Police;
       case 1: return Criminal;
+      case 2: return Visitor;
       default: return null;
     }
   }

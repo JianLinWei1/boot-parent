@@ -50,6 +50,10 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 		int  count = 0;
 		for (LsPerson lp : list) {
 			try {
+				if(lp.getPersontype() == 2 && lp.getStartDate() == null
+						&& lp.getEndDate() == null){
+					return  new ResultUtil(-1 , "类型为访客时,开始日期和结束日期不能为空");
+				}
 				if(StringUtils.isNotEmpty(lp.getCardid())
 						&&lsPersonMapper.selectByPrimaryKey(lp.getCardid()) != null){
 					
@@ -59,6 +63,7 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 					resultUtil.setData(JSON.toJSON(lp).toString());
 					break;*/
 				}
+				
 					
 				byte[] bs = FileUtil.Base642Byte(lp.getPhoto());
 				if (bs != null)
@@ -113,6 +118,10 @@ public class PrisonsPersonServiceImpl implements PrisonsPersonService {
 		int  count = 0;
 		for (LsPerson lp : list) {
 			try {
+				if(lp.getPersontype() == 2 && lp.getStartDate() == null
+						&& lp.getEndDate() == null){
+					return  new ResultUtil(-1 , "类型为访客时,开始日期和结束日期不能为空");
+				}
 				if(StringUtils.isNotEmpty(lp.getCardid())
 						&&lsPersonMapper.selectByPrimaryKey(lp.getCardid()) == null){
 					face_msg ="不存在";

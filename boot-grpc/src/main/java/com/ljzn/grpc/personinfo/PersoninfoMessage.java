@@ -28,6 +28,8 @@ private static final long serialVersionUID = 0L;
     photo_ = com.google.protobuf.ByteString.EMPTY;
     version_ = 0L;
     action_ = 0;
+    startDate_ = "";
+    endDate_ = "";
   }
 
   @java.lang.Override
@@ -118,6 +120,18 @@ private static final long serialVersionUID = 0L;
           case 64: {
 
             action_ = input.readInt32();
+            break;
+          }
+          case 74: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            startDate_ = s;
+            break;
+          }
+          case 82: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            endDate_ = s;
             break;
           }
         }
@@ -339,6 +353,90 @@ private static final long serialVersionUID = 0L;
     return action_;
   }
 
+  public static final int STARTDATE_FIELD_NUMBER = 9;
+  private volatile java.lang.Object startDate_;
+  /**
+   * <pre>
+   * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+   * </pre>
+   *
+   * <code>string startDate = 9;</code>
+   */
+  public java.lang.String getStartDate() {
+    java.lang.Object ref = startDate_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      startDate_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+   * </pre>
+   *
+   * <code>string startDate = 9;</code>
+   */
+  public com.google.protobuf.ByteString
+      getStartDateBytes() {
+    java.lang.Object ref = startDate_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      startDate_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int ENDDATE_FIELD_NUMBER = 10;
+  private volatile java.lang.Object endDate_;
+  /**
+   * <pre>
+   * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+   * </pre>
+   *
+   * <code>string endDate = 10;</code>
+   */
+  public java.lang.String getEndDate() {
+    java.lang.Object ref = endDate_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      endDate_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+   * </pre>
+   *
+   * <code>string endDate = 10;</code>
+   */
+  public com.google.protobuf.ByteString
+      getEndDateBytes() {
+    java.lang.Object ref = endDate_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      endDate_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -379,6 +477,12 @@ private static final long serialVersionUID = 0L;
     }
     if (action_ != 0) {
       output.writeInt32(8, action_);
+    }
+    if (!getStartDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, startDate_);
+    }
+    if (!getEndDateBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 10, endDate_);
     }
     unknownFields.writeTo(output);
   }
@@ -425,6 +529,12 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(8, action_);
     }
+    if (!getStartDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, startDate_);
+    }
+    if (!getEndDateBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, endDate_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -456,6 +566,10 @@ private static final long serialVersionUID = 0L;
         == other.getVersion());
     result = result && (getAction()
         == other.getAction());
+    result = result && getStartDate()
+        .equals(other.getStartDate());
+    result = result && getEndDate()
+        .equals(other.getEndDate());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -487,6 +601,10 @@ private static final long serialVersionUID = 0L;
         getVersion());
     hash = (37 * hash) + ACTION_FIELD_NUMBER;
     hash = (53 * hash) + getAction();
+    hash = (37 * hash) + STARTDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getStartDate().hashCode();
+    hash = (37 * hash) + ENDDATE_FIELD_NUMBER;
+    hash = (53 * hash) + getEndDate().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -636,6 +754,10 @@ private static final long serialVersionUID = 0L;
 
       action_ = 0;
 
+      startDate_ = "";
+
+      endDate_ = "";
+
       return this;
     }
 
@@ -672,6 +794,8 @@ private static final long serialVersionUID = 0L;
       result.photo_ = photo_;
       result.version_ = version_;
       result.action_ = action_;
+      result.startDate_ = startDate_;
+      result.endDate_ = endDate_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -746,6 +870,14 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getAction() != 0) {
         setAction(other.getAction());
+      }
+      if (!other.getStartDate().isEmpty()) {
+        startDate_ = other.startDate_;
+        onChanged();
+      }
+      if (!other.getEndDate().isEmpty()) {
+        endDate_ = other.endDate_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1250,6 +1382,184 @@ private static final long serialVersionUID = 0L;
     public Builder clearAction() {
       
       action_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object startDate_ = "";
+    /**
+     * <pre>
+     * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+     * </pre>
+     *
+     * <code>string startDate = 9;</code>
+     */
+    public java.lang.String getStartDate() {
+      java.lang.Object ref = startDate_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        startDate_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+     * </pre>
+     *
+     * <code>string startDate = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStartDateBytes() {
+      java.lang.Object ref = startDate_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        startDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+     * </pre>
+     *
+     * <code>string startDate = 9;</code>
+     */
+    public Builder setStartDate(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      startDate_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+     * </pre>
+     *
+     * <code>string startDate = 9;</code>
+     */
+    public Builder clearStartDate() {
+      
+      startDate_ = getDefaultInstance().getStartDate();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 为访客时  开始日期  yyyy-MM-dd  HH:mm:ss
+     * </pre>
+     *
+     * <code>string startDate = 9;</code>
+     */
+    public Builder setStartDateBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      startDate_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object endDate_ = "";
+    /**
+     * <pre>
+     * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string endDate = 10;</code>
+     */
+    public java.lang.String getEndDate() {
+      java.lang.Object ref = endDate_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        endDate_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string endDate = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEndDateBytes() {
+      java.lang.Object ref = endDate_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        endDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string endDate = 10;</code>
+     */
+    public Builder setEndDate(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      endDate_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string endDate = 10;</code>
+     */
+    public Builder clearEndDate() {
+      
+      endDate_ = getDefaultInstance().getEndDate();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 为访客时  结束日期  yyyy-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string endDate = 10;</code>
+     */
+    public Builder setEndDateBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      endDate_ = value;
       onChanged();
       return this;
     }
